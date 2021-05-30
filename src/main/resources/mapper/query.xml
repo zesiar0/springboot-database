@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.expr.dao.StudentScoreDao">
+    <resultMap id="query" type="com.example.expr.query.GradeQuery">
+        <id property="id" column="id"/>
+        <result property="SName" column="SName"/>
+        <result property="CName" column="CName"/>
+        <result property="score" column="score"/>
+    </resultMap>
+    
+    <!--查找所有学生课程成绩信息-->
+    <select id="getAllInfo" resultMap="query">
+        select g.id, s.sname, c.cname, g.score
+        from grade as g, student as s, course as c
+        where g.sid=s.sid and g.cid=c.cid order by g.id
+    </select>
+
+    <!--查找指定学生课程成绩信息-->
+    <select id="getStudentInfo" resultMap="query">
+        select g.id, s.sname, c.cname, g.score
+        from grade as g, student as s, course as c
+        where g.sid=s.sid and g.cid=c.cid and s.sname=#{name} order by g.id
+    </select>
+</mapper>
